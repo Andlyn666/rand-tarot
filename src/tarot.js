@@ -17,6 +17,10 @@ const TarotCardSlider = ({ tarotCards }) => {
 
 
     const handleCardSelection = useCallback((index) => {
+        if (!showSelect) {
+            return;
+        }
+
         if (
             chosenCards.length < 3 &&
             !chosenCards.some(card => card.index === Number(cardIndex[0][index]))
@@ -29,7 +33,7 @@ const TarotCardSlider = ({ tarotCards }) => {
                 setShowSets(false);
             }
         }        
-    }, [chosenCards, setShowSets, tarotCards, cardIndex, cardDirection]);  // Add other dependencies if they are used inside the function
+    }, [chosenCards, setShowSets, tarotCards, cardIndex, cardDirection, showSelect]);  // Add other dependencies if they are used inside the function
        
     const SelectedCardsDisplay = () => {
         const blankCardsCount = 3 - chosenCards.length;
@@ -45,10 +49,12 @@ const TarotCardSlider = ({ tarotCards }) => {
                                 borderRadius: '10px',
                                 margin: '10px',
                             }} 
-                        >
+                        >   
+                        <LayzLoad height={200}>
                             <img 
                                 src={tarotCards[card.index].image} 
-                                alt={tarotCards[card.index].name} 
+                                alt={tarotCards[card.index].name}
+                                loading="lazy"
                                 style={{ 
                                     height: '300px',
                                     width: '180px',
@@ -56,6 +62,8 @@ const TarotCardSlider = ({ tarotCards }) => {
                                     transform: card.direction === 'Reversed' ? "rotate(180deg)" : "none",
                                 }}
                             />
+                        </LayzLoad>
+                            
                         </div>
                         <h5 className='mysterious-text' style={{color:'gray', marginTop:'15px', fontSize:'14px'}}>{card.name + ' ' + card.direction} </h5>
                     </div>
@@ -118,6 +126,7 @@ const TarotCardSlider = ({ tarotCards }) => {
             <img
                 src={CardBack}
                 alt={card.name}
+                loading="lazy"
                 style={{
                     marginTop: '20px',
                     height: '300px',
@@ -134,6 +143,7 @@ const TarotCardSlider = ({ tarotCards }) => {
     const BlankCard = () => (
         <img src={CardBack}
                   alt={'Card Blank'}
+                  loading="lazy"
                   style={{
                       height: '300px',
                       width: '180px',

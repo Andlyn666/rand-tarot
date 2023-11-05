@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input, Space, Spin, Card } from 'antd';
 
-
 function Interpretation({cardsChosen, onBackClick}) {
   const [question, setQuestion] = useState('');
   const [responseText, setResponseText] = useState('');
@@ -22,13 +21,12 @@ function Interpretation({cardsChosen, onBackClick}) {
     setIsLoading(true);
     const cardNames = cardsChosen.map(card => (card.name + card.direction)).join(', ');
     const inputText = `Please act as a tarot fortune teller to interpret the deck for the guests, and give some advise, the guest wants to consult about ${question}, the drawn cards are ${cardNames}`;
-    const key = process.env.REACT_APP_OPENAI_KEY;
-    fetch('https://api.openai.com/v1/completions', {
+    const serverURL = process.env.REACT_APP_API_URL; //Replace this with your actual server URL
+    fetch(serverURL, {
         method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${key}`
-        },
+          'Content-Type': 'application/json'},
         body: JSON.stringify({
             prompt: inputText,
             model: "text-davinci-003",
@@ -38,11 +36,11 @@ function Interpretation({cardsChosen, onBackClick}) {
     })
     .then(response => response.json())
     .then(data => {
-        setResponseText(data.choices[0].text);
+        setResponseText(data.content);
         setShowInterpretation(true);
         setIsLoading(false);
     });
-  };
+};
 
   const goBack = () => {
     setQuestion('');
