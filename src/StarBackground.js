@@ -9,7 +9,7 @@ const StarBackground = () => {
       let x = Math.random() * window.innerWidth;
       let y = Math.random() * window.innerHeight;
       ctx.beginPath();
-      ctx.arc(x, y, radius, 0, 2 * Math.PI); // Increase the value of radius to increase the size of stars
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
       ctx.fillStyle = '#9999ff';
       ctx.fill();
     }
@@ -18,27 +18,38 @@ const StarBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 
     let frameId;
     let numStars = 100;
-    let frameCount = 0; // Added frameCount variable
+    let frameCount = 0;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      context.fillStyle = '#00004d';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      drawStars(context, numStars, 1.5);
+    };
+
+    window.addEventListener('resize', resizeCanvas);
 
     const render = () => {
       frameCount++;
-      if (frameCount === 15) { // Change this to adjust the frequency of star movement
+      if (frameCount === 15) { 
         context.fillStyle = '#00004d';
         context.fillRect(0, 0, canvas.width, canvas.height);
-        drawStars(context, numStars, 1.5); // Increased radius value for bigger stars
+        drawStars(context, numStars, 1.5); 
         frameCount = 0;
       }
       frameId = window.requestAnimationFrame(render);
     };
+    
+    resizeCanvas();
     render();
 
     return () => {
       window.cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', resizeCanvas);
     };
   }, []);
 
