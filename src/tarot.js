@@ -50,8 +50,7 @@ const TarotCardSlider = ({ tarotCards }) => {
                                 margin: '10px',
                             }} 
                         >   
-                        <LayzLoad height={200}>
-                            <img 
+                         <img 
                                 src={tarotCards[card.index].image} 
                                 alt={tarotCards[card.index].name}
                                 loading="lazy"
@@ -62,7 +61,6 @@ const TarotCardSlider = ({ tarotCards }) => {
                                     transform: card.direction === 'Reversed' ? "rotate(180deg)" : "none",
                                 }}
                             />
-                        </LayzLoad>
                             
                         </div>
                         <h5 className='mysterious-text' style={{color:'gray', marginTop:'15px', fontSize:'14px'}}>{card.name + ' ' + card.direction} </h5>
