@@ -53,10 +53,10 @@ const TarotCardSlider = ({ tarotCards }) => {
                          <img 
                                 src={tarotCards[card.index].image} 
                                 alt={tarotCards[card.index].name}
+                                height={300}
+                                width={180}
                                 loading="lazy"
-                                style={{ 
-                                    height: '300px',
-                                    width: '180px',
+                                style={{
                                     borderRadius: '10px',
                                     transform: card.direction === 'Reversed' ? "rotate(180deg)" : "none",
                                 }}
@@ -124,11 +124,11 @@ const TarotCardSlider = ({ tarotCards }) => {
             <img
                 src={CardBack}
                 alt={card.name}
+                height={300}
+                width={180}
                 loading="lazy"
                 style={{
                     marginTop: '20px',
-                    height: '300px',
-                    width: '180px',
                     borderRadius: '10px',
                     boxShadow: '1px 2px 9px #6666ff'
                 }}
@@ -141,10 +141,10 @@ const TarotCardSlider = ({ tarotCards }) => {
     const BlankCard = () => (
         <img src={CardBack}
                   alt={'Card Blank'}
+                  height={300}
+                  width={180}
                   loading="lazy"
                   style={{
-                      height: '300px',
-                      width: '180px',
                       borderRadius: '10px',
                       margin: '10px',
                       boxShadow: '6px 9px 9px #6666ff'
